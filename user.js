@@ -22,7 +22,7 @@ router.route('/register').post((req,res)=>{
             res.send(JSON.stringify({success:false,message:error}));
         }else{
             // if success send response here
-            res.send(JSON.stringify({success:true,message:'register'}));
+            res.send(JSON.stringify({success:true,message:'registration successfull!'}));
         }
     });
 
@@ -31,13 +31,13 @@ router.route('/register').post((req,res)=>{
 
 router.route('/login').post((req,res)=>{
 
-    var eamil=req.body.email;
+    var email=req.body.email;
     var password=req.body.password;
 
     var sql="SELECT * FROM user WHERE email=? AND password=?";
     
-    if(eamil != "" && password !=""){
-        db.query(sql,[eamil,password],function(err,data,fields){
+    if(email != "" && password !=""){
+        db.query(sql,[email,password],function(err,data,fields){
             if(err){
                 res.send(JSON.stringify({success:false,message:err}));
 
@@ -51,7 +51,7 @@ router.route('/login').post((req,res)=>{
             }
         });
     }else{
-        res.send(JSON.stringify({success:false,message:'Email and password required!'}));
+        res.send(JSON.stringify({success:false,message:'Please enter email and password.'}));
     }
 
 });
