@@ -19,3 +19,5 @@ exports.cancelBid = async (req, res) => {
     return res.status(500).send('Error cancelling bid');
   }
 };
+
+router.post('/cancel-bid/:bidID', verifyToken, controllers.cancelBid);
