@@ -1,0 +1,21 @@
+exports.cancelBid = async (req, res) => {
+  try {
+      const { bidID } = req.params;
+      const [existingBid] = await db.query(
+        'SELECT * FROM bids WHERE bidID = ?',
+        [bidID]
+      );
+
+      if (existingBid.length === 0) {
+        return res.status(404).json({ error: 'Bid not found' });
+      }
+
+      await db.query('DELETE FROM bids WHERE bidID = ?', [bidID]);
+      return res.status(200).json({ message: 'Bid cancelled successfully' });
+    });
+
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).send('Error cancelling bid');
+  }
+};
